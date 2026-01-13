@@ -2,18 +2,14 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#ffffff">
-    <title>Unfold Academy | Calicut | The Professional Standard</title>
+    <title>Unfold Academy | Calicut</title>
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 36 36'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2360A5FA'/%3E%3Cstop offset='100%25' style='stop-color:%231E3A8A'/%3E%3C/linearGradient%3E%3Cfilter id='s'%3E%3CfeDropShadow dx='0' dy='1.5' stdDeviation='1' flood-color='rgba(0,0,0,0.3)'/%3E%3C/filter%3E%3C/defs%3E%3Crect width='36' height='36' rx='10' fill='url(%23g)'/%3E%3Crect width='36' height='36' rx='10' fill='white' fill-opacity='0.1' style='mix-blend-mode:overlay'/%3E%3Cpath d='M10 26V18H18V10H26' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round' fill='none' filter='url(%23s)'/%3E%3C/svg%3E">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
@@ -30,29 +26,29 @@
     </script>
 
     <style>
-        /* Base Settings */
-        body { 
+        /* FIX 2: Global overflow fix */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            position: relative;
             background-color: #FAFAFA;
-            color: #1e1e1e;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden; /* Prevent horizontal scroll from animations */
         }
-        
-        /* Typography */
+
         h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
 
-        /* --- VISUALS --- */
-        
-        /* Gradients optimized for mobile performance */
+        /* FIX 3: Fixed the gradient blob sizing for Mobile */
         .mesh-gradient {
             position: absolute;
-            width: 80vw;
+            /* Changed from fixed 600px to responsive units */
+            width: 80vw; 
             height: 80vw;
+            /* Max width ensures it doesn't get too big on desktop */
             max-width: 600px;
             max-height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, rgba(139,92,246,0.05) 40%, rgba(255,255,255,0) 70%);
             border-radius: 50%;
-            filter: blur(60px); /* Reduced blur slightly for performance */
+            filter: blur(60px);
             z-index: 0;
             pointer-events: none;
             will-change: transform;
@@ -66,26 +62,12 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
             will-change: transform, box-shadow;
         }
-        
-        @media (hover: hover) {
-            .figma-card:hover {
-                transform: translateY(-8px) scale(1.01);
-                box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.06);
-                border-color: rgba(59, 130, 246, 0.1);
-            }
-        }
 
-        /* Buttons */
         .btn-primary {
             background: #1e1e1e;
             color: white;
             border-radius: 9999px;
             transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.2);
-            background: #000;
         }
 
         .btn-secondary {
@@ -95,16 +77,8 @@
             border-radius: 9999px;
             transition: all 0.3s ease;
         }
-        .btn-secondary:hover {
-            background: #F9FAFB;
-            border-color: #D1D5DB;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
 
-        /* --- ANIMATIONS --- */
-        
-        /* Entry Animation (Page Load) */
+        /* Animations */
         .animate-up {
             opacity: 0;
             transform: translateY(20px);
@@ -112,21 +86,17 @@
         }
         @keyframes floatUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Scroll Reveal Animation */
         .reveal {
             opacity: 0;
             transform: translateY(30px) scale(0.98);
             transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            will-change: opacity, transform;
         }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-        /* Delays */
         .delay-100 { animation-delay: 0.1s; transition-delay: 0.1s; }
         .delay-200 { animation-delay: 0.2s; transition-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; transition-delay: 0.3s; }
 
-        /* Utility */
         .ai-glow {
             box-shadow: 0 0 25px rgba(59, 130, 246, 0.1);
             border-color: #BFDBFE;
@@ -138,18 +108,8 @@
             100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
         .whatsapp-pulse { animation: pulse-soft 2s infinite; }
-
-        /* Accessibility: Reduce Motion */
-        @media (prefers-reduced-motion: reduce) {
-            .animate-up, .reveal, .whatsapp-pulse, .figma-card:hover {
-                animation: none;
-                transition: none;
-                transform: none;
-                opacity: 1;
-            }
-        }
         
-        /* Mobile Menu Transitions */
+        /* Mobile Menu */
         #mobile-menu {
             transition: opacity 0.3s ease, transform 0.3s ease;
             opacity: 0;
@@ -163,13 +123,13 @@
         }
     </style>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden antialiased text-gray-900 bg-gray-50">
 
-    <nav class="fixed top-0 left-0 right-0 z-50 pt-4 md:pt-6 px-4 animate-up delay-100">
+    <nav class="fixed top-0 left-0 right-0 z-50 pt-4 px-4 animate-up delay-100">
         <div class="max-w-5xl mx-auto bg-white/90 backdrop-blur-md border border-white/60 shadow-lg shadow-gray-200/20 rounded-full px-4 md:px-6 h-16 flex items-center justify-between relative">
             
             <a href="#" class="flex items-center gap-3">
-                <svg height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-8 md:h-9 w-auto">
+                <svg height="32" width="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
                         <linearGradient id="logoGradNav" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" style="stop-color:#60A5FA;stop-opacity:1" /> 
@@ -210,7 +170,7 @@
         </div>
     </nav>
 
-    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden">
+    <header class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 overflow-hidden w-full">
         <div class="mesh-gradient -top-20 -left-20 bg-blue-200 opacity-40"></div>
         <div class="mesh-gradient top-40 -right-20 bg-indigo-200 opacity-40"></div>
 
@@ -229,7 +189,7 @@
                 A 15-day hybrid program to build your <strong>Communication, Confidence & Executive Presence</strong> for the modern workforce.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-up delay-300">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-up delay-300 w-full">
                 <a href="#" class="whatsapp-link btn-primary w-full sm:w-auto px-8 py-4 text-lg font-semibold flex items-center justify-center gap-2">
                     <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
                     Secure Your Seat
@@ -243,7 +203,7 @@
         </div>
     </header>
 
-    <section id="why" class="py-16 md:py-24 px-6 relative">
+    <section id="why" class="py-16 md:py-24 px-6 relative overflow-hidden">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
                 <div class="space-y-6 md:space-y-8 reveal">
@@ -511,7 +471,7 @@
         </div>
     </section>
 
-    <section class="py-20 md:py-32 px-6">
+    <section class="py-20 md:py-32 px-6 overflow-hidden">
         <div class="max-w-4xl mx-auto text-center relative">
             <div class="mesh-gradient top-0 left-1/4 bg-blue-50 opacity-50"></div>
             
